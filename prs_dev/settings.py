@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'modules',
     'utils',
     'django_celery_results',
 ]
@@ -126,4 +127,5 @@ CELERY_RESULT_BACKEND = 'django-db'
 
 CELERY_IMPORTS = (
     'app.tasks',
+    'modules.tasks',
 )
