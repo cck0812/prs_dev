@@ -1,0 +1,10 @@
+{
+    "name": "pattern_keyword",
+    "case_sensitive": false,
+    "test": {
+        "search_strings": [
+            "celery",
+            "django"
+        ]
+    }
+}
