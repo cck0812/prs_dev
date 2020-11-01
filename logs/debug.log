@@ -1,0 +1,126 @@
+2020-10-31 11:48:48,460 INFO django.utils.autoreload:140491156617024 - Watching for file changes with StatReloader
+2020-10-31 11:48:58,467 WARNING django.request:140491100808960 - Not Found: /
+2020-10-31 11:48:58,699 WARNING django.request:140491100808960 - Not Found: /favicon.ico
+2020-10-31 11:49:46,698 ERROR django.request:140491100808960 - Internal Server Error: /taskstest
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/prs_dev/modules/views/event_collector.py", line 45, in main
+    observer.start()
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/api.py", line 260, in start
+    emitter.start()
+  File "/usr/local/lib/python3.7/site-packages/watchdog/utils/__init__.py", line 110, in start
+    self.on_thread_start()
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/inotify.py", line 121, in on_thread_start
+    self._inotify = InotifyBuffer(path, self.watch.is_recursive)
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/inotify_buffer.py", line 35, in __init__
+    self._inotify = Inotify(path, recursive)
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/inotify_c.py", line 203, in __init__
+    self._add_watch(path, event_mask)
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/inotify_c.py", line 412, in _add_watch
+    Inotify._raise_error()
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/inotify_c.py", line 432, in _raise_error
+    raise OSError(err, os.strerror(err))
+FileNotFoundError: [Errno 2] No such file or directory
+2020-10-31 11:51:18,668 INFO django.utils.autoreload:140491156617024 - /app/prs_dev/modules/views/event_collector.py changed, reloading.
+2020-10-31 11:51:19,167 INFO django.utils.autoreload:140153622247232 - Watching for file changes with StatReloader
+2020-10-31 11:51:45,345 ERROR django.request:140153507018496 - Internal Server Error: /taskstest
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/prs_dev/modules/views/event_collector.py", line 58, in main
+    results = list(queryset.order_by('created_time').filter(is_done=False).values())
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/query.py", line 892, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/query.py", line 910, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1290, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1318, in _add_q
+    split_subq=split_subq, simple_col=simple_col,
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1190, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1049, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1420, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'is_done' into field. Choices are: created_time, file_path, file_size, filename, id, last_modified_time
+2020-10-31 11:52:58,133 ERROR django.request:140153507018496 - Internal Server Error: /taskstest
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/prs_dev/modules/views/event_collector.py", line 58, in main
+    results = list(queryset.order_by('created_time').filter(is_done=False).values())
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/query.py", line 892, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/query.py", line 910, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1290, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1318, in _add_q
+    split_subq=split_subq, simple_col=simple_col,
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1190, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1049, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "/usr/local/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1420, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'is_done' into field. Choices are: created_time, file_path, file_size, filename, id, last_modified_time
+2020-10-31 11:56:31,226 INFO django.utils.autoreload:140153622247232 - /app/prs_dev/modules/models.py changed, reloading.
+2020-10-31 11:56:31,710 INFO django.utils.autoreload:140457365432128 - Watching for file changes with StatReloader
+2020-10-31 11:59:10,269 INFO django.utils.autoreload:140457365432128 - /app/prs_dev/modules/views/event_collector.py changed, reloading.
+2020-10-31 11:59:10,767 INFO django.utils.autoreload:140151080998720 - Watching for file changes with StatReloader
+2020-10-31 11:59:20,683 ERROR django.request:140150956881664 - Internal Server Error: /taskstest
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/app/prs_dev/modules/views/event_collector.py", line 45, in main
+    observer.start()
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/api.py", line 260, in start
+    emitter.start()
+  File "/usr/local/lib/python3.7/site-packages/watchdog/utils/__init__.py", line 110, in start
+    self.on_thread_start()
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/inotify.py", line 121, in on_thread_start
+    self._inotify = InotifyBuffer(path, self.watch.is_recursive)
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/inotify_buffer.py", line 35, in __init__
+    self._inotify = Inotify(path, recursive)
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/inotify_c.py", line 203, in __init__
+    self._add_watch(path, event_mask)
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/inotify_c.py", line 412, in _add_watch
+    Inotify._raise_error()
+  File "/usr/local/lib/python3.7/site-packages/watchdog/observers/inotify_c.py", line 432, in _raise_error
+    raise OSError(err, os.strerror(err))
+FileNotFoundError: [Errno 2] No such file or directory
+2020-10-31 12:00:35,950 INFO django.utils.autoreload:140151080998720 - /app/prs_dev/modules/views/event_collector.py changed, reloading.
+2020-10-31 12:00:36,424 INFO django.utils.autoreload:140365854078784 - Watching for file changes with StatReloader
+2020-10-31 12:00:55,818 DEBUG watchdog.observers.inotify_buffer:140365789878016 - in-event <InotifyEvent: src_path=b'/app/prs_dev/src_folder/test3.txt', wd=1, mask=IN_CREATE, cookie=0, name=test3.txt>
+2020-10-31 12:00:55,824 DEBUG watchdog.observers.inotify_buffer:140365789878016 - in-event <InotifyEvent: src_path=b'/app/prs_dev/src_folder/test3.txt', wd=1, mask=IN_MODIFY, cookie=0, name=test3.txt>
+2020-10-31 12:00:55,880 DEBUG watchdog.observers.inotify_buffer:140365789878016 - in-event <InotifyEvent: src_path=b'/app/prs_dev/src_folder', wd=1, mask=IN_ATTRIB|IN_ISDIR, cookie=0, name=>
+2020-10-31 12:01:14,017 DEBUG amqp:140365806663424 - Start from server, version: 0.9, properties: {'capabilities': {'publisher_confirms': True, 'exchange_exchange_bindings': True, 'basic.nack': True, 'consumer_cancel_notify': True, 'connection.blocked': True, 'consumer_priorities': True, 'authentication_failure_close': True, 'per_consumer_qos': True, 'direct_reply_to': True}, 'cluster_name': 'rabbit@ac3789f2fdc7', 'copyright': 'Copyright (C) 2007-2018 Pivotal Software, Inc.', 'information': 'Licensed under the MPL.  See http://www.rabbitmq.com/', 'platform': 'Erlang/OTP 20.2.2', 'product': 'RabbitMQ', 'version': '3.7.3'}, mechanisms: [b'AMQPLAIN', b'PLAIN'], locales: ['en_US']
+2020-10-31 12:01:14,020 DEBUG amqp:140365806663424 - using channel_id: 1
+2020-10-31 12:01:14,023 DEBUG amqp:140365806663424 - Channel open
+2020-11-01 22:10:11,371 INFO django.utils.autoreload:140448840275776 - Watching for file changes with StatReloader
+2020-11-01 22:10:50,504 WARNING django.request:140448718911232 - Not Found: /
+2020-11-01 22:10:51,513 WARNING django.request:140448718911232 - Not Found: /favicon.ico
+2020-11-01 22:11:04,689 DEBUG watchdog.observers.inotify_buffer:140448702125824 - in-event <InotifyEvent: src_path=b'/app/prs_dev/src_folder/testmsg.txt', wd=1, mask=IN_CREATE, cookie=0, name=testmsg.txt>
+2020-11-01 22:11:04,693 DEBUG watchdog.observers.inotify_buffer:140448702125824 - in-event <InotifyEvent: src_path=b'/app/prs_dev/src_folder/testmsg.txt', wd=1, mask=IN_MODIFY, cookie=0, name=testmsg.txt>
+2020-11-01 22:11:04,741 DEBUG watchdog.observers.inotify_buffer:140448702125824 - in-event <InotifyEvent: src_path=b'/app/prs_dev/src_folder', wd=1, mask=IN_ATTRIB|IN_ISDIR, cookie=0, name=>
+2020-11-01 22:11:21,880 DEBUG amqp:140448718911232 - Start from server, version: 0.9, properties: {'capabilities': {'publisher_confirms': True, 'exchange_exchange_bindings': True, 'basic.nack': True, 'consumer_cancel_notify': True, 'connection.blocked': True, 'consumer_priorities': True, 'authentication_failure_close': True, 'per_consumer_qos': True, 'direct_reply_to': True}, 'cluster_name': 'rabbit@3b1863d4a927', 'copyright': 'Copyright (C) 2007-2018 Pivotal Software, Inc.', 'information': 'Licensed under the MPL.  See http://www.rabbitmq.com/', 'platform': 'Erlang/OTP 20.2.2', 'product': 'RabbitMQ', 'version': '3.7.3'}, mechanisms: [b'AMQPLAIN', b'PLAIN'], locales: ['en_US']
+2020-11-01 22:11:21,884 DEBUG amqp:140448718911232 - using channel_id: 1
+2020-11-01 22:11:21,887 DEBUG amqp:140448718911232 - Channel open

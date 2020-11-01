@@ -29,12 +29,12 @@ class FetchPatternInfo(CRLogHandler):
 
         if conf_key not in attr_keys:
             conf.load_conf(conf_path=conf_path)
-        self.conf = conf.conf_key
+        self.conf = getattr(conf, conf_key)
 
         return self.conf
 
     def get_pattern_info(self):
-        if self.file_obj not is None:
+        if self.file_obj:
             f_obj = self.file_obj
 
         pattern_str = re.compile()

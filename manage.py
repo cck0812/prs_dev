@@ -2,6 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from utils.logger import setup_logging
+setup_logging(os.path.join("configs", "logging.json"))
 
 
 def main():

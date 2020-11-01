@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
     'modules',
     'utils',
     'django_celery_results',
@@ -125,7 +124,13 @@ STATIC_URL = '/static/'
 
 CELERY_RESULT_BACKEND = 'django-db'
 
-CELERY_IMPORTS = (
-    'app.tasks',
-    'modules.tasks',
-)
+# Celery Configuration Options
+
+CELERY_TIMEZONE = 'Asia/Taipei'
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_RESULT_BACKEND = 'django-db'
+
+# CELERY_IMPORTS = (
+#     'modules.tasks',
+# )

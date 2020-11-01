@@ -1,10 +1,53 @@
 {
     "name": "pattern_keyword",
-    "case_sensitive": false,
-    "test": {
-        "search_strings": [
-            "celery",
-            "django"
+    "issue_categories": {
+        "common": [
+            {
+                "function": "func 1",
+                "module": "module 1",
+                "project": "project 1",
+                "platform": "platform 1",
+                "action": "action 1",
+                "pattern_categories": {
+                    "keyword_strings": [
+                        "celery"
+                    ],
+                    "key_value_strings": [
+                        {
+                            "key": "vine",
+                            "prefix": "==",
+                            "suffix": "."
+                        }
+                    ]
+                }
+            },
+            {
+                "function": "func 1_1",
+                "module": "module 1_1",
+                "project": "project 1_1",
+                "platform": "platform 1_1",
+                "action": "action 1_1",
+                "pattern_categories": {
+                    "keyword_strings": [
+                        "pytz"
+                    ]
+                }
+            }
+        ],
+        "others": [
+            {
+                "function": "func 2",
+                "module": "module 2",
+                "project": "project 2",
+                "platform": "platform 2",
+                "action": "action 2",
+                "pattern_categories": {
+                    "keyword_strings": [
+                        "Django",
+                        "django"
+                    ]
+                }
+            }
         ]
     }
 }

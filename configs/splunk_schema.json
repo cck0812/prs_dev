@@ -1,0 +1,36 @@
+{
+    "Timestamp": "1604044294",
+    "<CR ID>": "DTV03037343",
+    "<filename>": "filename_1",
+    "file_path": "/path/to/file",
+    "file_size": "file size",
+    "is_from_auto": true,
+    "log_format": "autolog",
+    "extracted_pattern": [
+        {
+            "issue_category_1": [
+                {
+                    "function": "function team_1",
+                    "module": "module_1",
+                    "project": "project_1",
+                    "platform": "platform_1",
+                    "action": "action_1",
+                    "pattern_info": [
+                        {
+                            "lineno": 1,
+                            "timestamp": 710.285797,
+                            "value": "value_1",
+                            "result": "the raw data of matched pattern"
+                        },
+                        {
+                            "lineno": 2,
+                            "timestamp": 710.288427,
+                            "value": "value_2",
+                            "result": "the raw data of matched pattern"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
