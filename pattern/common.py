@@ -33,18 +33,18 @@ class FetchPatternInfo(CRLogHandler):
 
         return self.conf
 
-    def get_pattern_info(self):
-        if self.file_obj:
-            f_obj = self.file_obj
+    # def get_pattern_info(self):
+    #     if self.file_obj:
+    #         f_obj = self.file_obj
 
-        pattern_str = re.compile()
-        for line in f_obj:
+    #     pattern_str = re.compile()
+    #     for line in f_obj:
             
 
 
-    @property
-    def get_file_length(self):
-        if self.file_obj:
-            self.file_len = sum(1 for line in self.file_obj)
+    # @property
+    # def get_file_length(self):
+    #     if self.file_obj:
+    #         self.file_len = sum(1 for line in self.file_obj)
 
-        return self.file_len
+    #     return self.file_len

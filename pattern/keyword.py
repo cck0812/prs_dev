@@ -32,13 +32,26 @@ class Keyword():
             self._setup_settings()
 
         ics = self.conf['issue_categories']
+        compile_group = []
         for ic in ics:
             ic_list = ics[ic]
-            for ic_index, pcs in enumerate(ic_list): # pcs: pattern_categories
-                pc = pcs['pattern_categories']
-                compile_group = [[ic, ic_index, p, pc[p]] for p in pc]
+            for ic_index, pcs_dict in enumerate(ic_list): 
+                pcs = pcs_dict['pattern_categories'] # pcs: pattern_categories
+                for p in pcs:
+                    compile_group.append([ic, ic_index, p, pcs[p]])
 
         compiled_group = []
+        """
+        data structure: compile_group: nested list
+        [
+            [
+                issus_category, index, pattern_category, [search patterns]
+            ],
+            [
+                ...another pattern_category
+            ]
+        ]
+        """
         while len(compile_group):
             compile_list = compile_group.pop(0)
             if compile_list[2].startswith('keyword'):
@@ -66,22 +79,22 @@ class Keyword():
 
         return re.compile(f"(?P<key>{key})(?:{prefix})(?P<value>.*?)(?:{suffix})")
 
-    def get_pattern_value(self, line):
-        compiled_strs = self.compile_search_strings()
-        for c_str in compiled_strs:
-            match_obj = c_str.search(line)
-            if match_obj:
-                match_dict = dict(
-                                value=match_obj.group(1),
-                                results=line
-                            )
+    def get_pattern_value(self, file_obj):
+        compiled_str_lists = self.compile_all_search_strings()
+        for line in file_obj:
+            for compiled_str_list in compiled_str_lists:
+                ic, ic_idx, pc, compiled_strs = compiled_str_list
 
-                yield match_dict
+                for c_str in compiled_strs:
+                    match = c_str.search(line)
+                    if match:
+                        match_dict = dict(
+                                        issue_category=ic,
+                                        ic_index=ic_idx,
+                                        pattern_category=pc,
+                                        lineno=file_obj.lineno(),
+                                        value=match.group(),
+                                        results=line
+                                    )
 
-"""
-for line in log:
-    for re_c in re_c_list:
-        m_obj = re_c.search(line)
-        if m_obj:
-            print(f"Line: {log.lineno()}, Value: {m_obj.group(1)}, Results: {line}")
-"""  
+                        yield match_dict

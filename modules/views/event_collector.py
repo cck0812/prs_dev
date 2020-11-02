@@ -41,7 +41,7 @@ def get_file_ext(filename):
 def main(request):
     event_handler = CRLogFileHandler()
     observer = Observer()
-    observer.schedule(event_handler, path='/app/prs_dev/src_folder', recursive=False)
+    observer.schedule(event_handler, path='E:\\prs_dev\\src_folder', recursive=False)
     observer.start()
     count = 0
 
@@ -53,13 +53,13 @@ def main(request):
         observer.stop()
     observer.join()
 
-    time.sleep(10)
+    time.sleep(2)
     queryset = LogInformation.objects.all()
     results = list(queryset.order_by('created_time').filter(is_done=False).values())
     results_count = len(results)
-    for object in results:
-        id = object['id']
-        fp = object['file_path']
+    for obj in results:
+        id = obj['id']
+        fp = obj['file_path']
         celery_task.delay(fp)
         queryset.filter(id=id).update(is_done=True)
 
