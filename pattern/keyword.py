@@ -3,35 +3,26 @@
 import os
 import re
 import logging
+# dev
+import sys
+SCRIPT_DIR = os.path.realpath(os.path.dirname(os.path.dirname(__file__)))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR)))
+# dev
 from configs.setup_settings import CFGSettings
 
+
 class Keyword():
-    CONFIG_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)),
-                                "configs",
-                                "pattern_keyword.json")
-    FILENAME_NO_EXT = os.path.splitext(os.path.basename(CONFIG_PATH))[0] # ["pattern_keyword", ".json"]
+    CONFIG_SET = ["pattern_meta", "pattern_keyword"]
 
-    def __init__(self):
-        self.conf = None
+    def __init__(self, conf):
         self.logger = logging.getLogger(__name__)
-
-    def _setup_settings(self):
-        conf = CFGSettings()
-        attr_keys = vars(conf).keys()
-        conf_path = Keyword.CONFIG_PATH
-        conf_key = Keyword.FILENAME_NO_EXT
-
-        if conf_key not in attr_keys:
-            conf.load_conf(conf_path=conf_path)
-        self.conf = getattr(conf, conf_key)
-
-        return self.conf
+        if isinstance(conf, dict):
+            self.conf = {cs:conf[cs] for cs in Keyword.CONFIG_SET}
+        else:
+            raise ValueError("conf needs to be a dictionary type")
 
     def compile_all_search_strings(self):
-        if self.conf is None:
-            self._setup_settings()
-
-        ics = self.conf['issue_categories']
+        ics = self.conf['pattern_keyword']['issue_categories']
         compile_group = []
         for ic in ics:
             ic_list = ics[ic]
@@ -98,3 +89,23 @@ class Keyword():
                                     )
 
                         yield match_dict
+
+
+def main():
+    path = 'H:\mtk_project\prs_dev\example\DTV03036540-2020-10-28-015510-bsp_common_common.sh_90001-kernel.log'
+    conf_obj = CFGSettings()                    
+    conf_obj.load_conf(conf_folder=True)
+    conf = vars(conf_obj)
+    parser = Keyword(conf)
+    
+    from utils.handler import CRLogHandler
+    from utils.result_collector import FinalResultCollector
+
+    result = FinalResultCollector()
+    with CRLogHandler(path, result) as cr_obj:
+        parser.get_pattern_value(cr_obj)
+
+
+
+if __name__ == "__main__":
+    main()
