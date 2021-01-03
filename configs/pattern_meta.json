@@ -1,18 +1,44 @@
 {
     "name": "pattern_meta",
-    "autolog": {
-        "filename_format": "^\\d{4}-\\d{2}-\\d{2}-\\d{6}-.*\\.(?:log)$",
-        "log_format": {
+    "registered_parser": [
+        {
+            "keyword": {
+                "callback": "pattern.common_parsers.KeywordParser"
+            }
+        },
+        {
+            "key_value": {
+                "callback": "pattern.common_parsers.KeyValueParser"
+            }
+        },
+        {
+            "sequence": {
+                "callback": "pattern.common_parsers.SequenceParser"
+            }
+        }
+    ],
+    "log_format": {
+        "autolog": {
+            "filename_format": "^\\d{4}-\\d{2}-\\d{2}-\\d{6}-.*\\.(?:log)$",
             "log_level": {
                 "pattern": "\\<\\d\\>",
                 "pos": 0,
                 "endpos": 3
             },
-            "timestamp": {
-                "pattern": "[\\d*\\.\\d+]",
-                "pos": 0,
-                "endpos": 100
+            "machine_time": {
+                "pattern": [
+                    "\\[\\s*(\\d*\\.\\d+)\\]",
+                    ":([\\d/.]+):\\w+:"
+                ],
+                "pos": 3,
+                "endpos": 30,
+                "group": 1
             }
         }
+    },
+    "file": {
+        "source": "E:\\prs_dev\\src_folder",
+        "src_chunk_size": 1000000,
+        "output": "E:\\prs_dev\\dest_folder"
     }
 }
