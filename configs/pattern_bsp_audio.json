@@ -1,0 +1,146 @@
+{
+    "name": "pattern_bsp_audio",
+    "issue_categories": {
+        "Output Mute Check": [
+            {
+                "function": "BSP_Audio",
+                "module": "",
+                "project": "Common",
+                "platform": "Common",
+                "action": "arc應該要被靜音 spdif/arc[0,1]",
+                "pattern_categories": {
+                    "keyword": [
+                        "\\[Output Channel Info\\]",
+                        "\\[Spdif/Arc Info\\]"
+                    ],
+                    "key_value": [
+                        {
+                            "key_prefix": "Mute.*?",
+                            "key": "spdif/arc",
+                            "prefix": "\\[",
+                            "value": "\\d,\\d",
+                            "suffix": "\\]"
+                        }
+                    ]
+                }
+            }
+        ],
+        "arc/earc connection check": [
+            {
+                "function": "BSP_Audio",
+                "module": "",
+                "project": "Common",
+                "platform": "Common",
+                "action": "1.是earc的話就會看到eARC=1; 2.是arc的話就會看到eARC=0; 3.都不是的話，就看到都是0",
+                "pattern_categories": {
+                    "key_value": [
+                        {
+                            "key_prefix": "OutputDevice.*?",
+                            "key": "arc",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "OutputDevice.*?",
+                            "key": "eArc",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "OutputDevice.*?",
+                            "key": "IsEarcMode",
+                            "prefix": ":",
+                            "value": "\\d"
+                        }
+                    ]
+                }
+            }
+        ],
+        "avr capability": [
+            {
+                "function": "BSP_Audio",
+                "module": "",
+                "project": "",
+                "platform": "",
+                "action": "若支援X則:1，否則:0",
+                "pattern_categories": {
+                    "key_value": [
+                        {
+                            "key_prefix": "EDID_Arc.*?Cap.*?",
+                            "key": "dd",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "EDID_Arc.*?Cap.*?",
+                            "key": "ddp",
+                            "prefix": ":",
+                            "value": "\\d",
+                            "suffix": "\\(atmos:\\d\\)"
+                        },
+                        {
+                            "key_prefix": "EDID_Arc.*?Cap.*?",
+                            "key": "dts",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "EDID_Arc.*?Cap.*?",
+                            "key": "aac",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "EDID_Arc.*?Cap.*?",
+                            "key": "mat\\(truhd\\)",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "EDID_Arc.*?Cap.*?",
+                            "key": "dtshd",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "EDID_Arc.*?Byte3.*?",
+                            "key": "dd",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "EDID_Arc.*?Byte3.*?",
+                            "key": "ddp",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "EDID_Arc.*?Byte3.*?",
+                            "key": "dts",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "EDID_Arc.*?Byte3.*?",
+                            "key": "aac",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "EDID_Arc.*?Byte3.*?",
+                            "key": "mat\\(truhd\\)",
+                            "prefix": ":",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "EDID_Arc.*?Byte3.*?",
+                            "key": "dtshd",
+                            "prefix": ":",
+                            "value": "\\d"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

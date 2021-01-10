@@ -1,0 +1,133 @@
+{
+    "name": "pattern_platform_csp",
+    "issue_categories": {
+        "Basic playback flow": [
+            {
+                "function": "Platform_CSP",
+                "module": "YouTube",
+                "project": "Common",
+                "platform": "Common",
+                "action": "If FAILED, please check:; 1) 是否有Init錯誤訊息; 2) 資料是否正常push至MM; 3) MMLog flow是否正確",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "Add player pipeline successful",
+                            "Add player successful",
+                            "Player initialize",
+                            "Player is valid",
+                            "Player is AVP",
+                            "Update player 0 handle successful",
+                            "MI MM EventCb: E_MI_MM_EVENT_START_PLAY",
+                            "MI MM EventCb: E_MI_MM_EVENT_PLAYING_OK"
+                        ]
+                    ]
+                }
+            }
+        ],
+        "vr360 playback flow": [
+            {
+                "function": "Platform_CSP",
+                "module": "YouTube",
+                "project": "Common",
+                "platform": "Common",
+                "action": "If FAILED, please check:; 1) 起播影片是否為vr360; 2) 是否有Init錯誤訊息; 3) 資料是否正常push至MM; 4) 是否有收到callback Frame",
+                "pattern_categories": {
+                    "keyword": [
+                        "Address: \\w+, Width: \\d+, Height: \\d+, Pitch: \\d+, Size:\\d+"
+                    ],
+                    "sequence": [
+                        [
+                            "Output mode is decode-to-texure",
+                            "Texture format caps: 128",
+                            "Texture format is : YUV420_NV12",
+                            "Set texture property successed"
+                        ]
+                    ]
+                }
+            }
+        ],
+        "Check PQDS level": [
+            {
+                "function": "Platform_CSP",
+                "module": "YouTube",
+                "project": "Common",
+                "platform": "Common",
+                "action": "If FAILED, please check:; 1) Server resolution list是否正確; 2) 如為YTS測項, 則可忽略PQDSLevel: 1(0/0)設定",
+                "pattern_categories": {
+                    "keyword": [
+                        "PQDSLevel: YTS setting"
+                    ],
+                    "key_value": [
+                        {
+                            "key": "width",
+                            "prefix": "=",
+                            "value": "\\d+",
+                            "suffix": ".*probably/true"
+                        },
+                        {
+                            "key": "height",
+                            "prefix": "=",
+                            "value": "\\d+",
+                            "suffix": ".*probably/true"
+                        },
+                        {
+                            "key": "natural_size_\\.width\\(\\)",
+                            "prefix": "\\s:\\s",
+                            "value": "\\d+",
+                            "suffix": ".*?"
+                        },
+                        {
+                            "key": "natural_size_\\.height\\(\\)",
+                            "prefix": "\\s:\\s",
+                            "value": "\\d+",
+                            "suffix": ".*?"
+                        },
+                        {
+                            "key": "Get PQDSLevel",
+                            "prefix": ":\\s",
+                            "value": "[\\d()/]+",
+                            "suffix": ".*?"
+                        }
+                    ]
+                }
+            }
+        ],
+        "check dynamic scaling spend time": [
+            {
+                "function": "Platform_CSP",
+                "module": "Netflix",
+                "project": "Common",
+                "platform": "common",
+                "action": "If one of the values is lager than 5ms , then should check other information in this time.",
+                "pattern_categories": {
+                    "key_value": [
+                        {
+                            "key": "ISR",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+",
+                            "suffix": "\\sms"
+                        },
+                        {
+                            "key": "Set window DS",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+",
+                            "suffix": "\\sms"
+                        },
+                        {
+                            "key": "Dolby DS",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+",
+                            "suffix": "\\sms"
+                        },
+                        {
+                            "key": "MVOP task",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+",
+                            "suffix": "\\sms"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

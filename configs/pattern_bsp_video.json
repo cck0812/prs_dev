@@ -1,0 +1,477 @@
+{
+    "name": "pattern_bsp_video",
+    "issue_categories": {
+        "Common flow check": [
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "Common",
+                "action": "Check Apollo playback normal",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "MTGVDEC_Open",
+                            "MTGVDEC_Play",
+                            "MTGVDEC_StartVideoDecoder"
+                        ]
+                    ],
+                    "keyword": [
+                        "MApi_VDEC_EX_V2_Init u8Idx:0",
+                        "MApi_VDEC_EX_V2_Init",
+                        "_MApi_VDEC_EX_V2_Exit u8Idx:0",
+                        "_MApi_VDEC_EX_V2_Exit"
+                    ],
+                    "key_value": [
+                        {
+                            "key": "measure_time",
+                            "prefix": "\\]\\s.*:\\s+",
+                            "value": "\\d+"
+                        }
+                    ]
+                }
+            },
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "Common",
+                "action": "1.Common status after playback; 2.Must have codec; 3.Must have sync mode",
+                "pattern_categories": {
+                    "keyword": [
+                        "(MApi_VDEC_EX_V2_Init).*?Out:"
+                    ],
+                    "key_value": [
+                        {
+                            "key": "Read",
+                            "prefix": ":\\s+",
+                            "value": "\\w+"
+                        },
+                        {
+                            "key": "Write",
+                            "prefix": ":\\s+",
+                            "value": "\\w+"
+                        },
+                        {
+                            "key": "Resolution",
+                            "prefix": ":\\s+",
+                            "value": "\\w+X\\w+"
+                        },
+                        {
+                            "key": "GoodFrame",
+                            "prefix": ":\\s+",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key": "ErrFrame",
+                            "prefix": ":\\s+",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key": "Sync On",
+                            "prefix": ":\\s+",
+                            "value": "[a-zA-Z]+"
+                        },
+                        {
+                            "key": "Status",
+                            "prefix": ":\\s+",
+                            "value": "[a-zA-Z]+"
+                        },
+                        {
+                            "key_prefix": "MI3_DEBUG.*?",
+                            "key": "Codec",
+                            "prefix": ":",
+                            "value": "\\w+"
+                        },
+                        {
+                            "key": "DTV\\s+Sync\\smode",
+                            "prefix": ":",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key": "hTsio",
+                            "prefix": ":",
+                            "value": "\\w+"
+                        },
+                        {
+                            "key": "hSource",
+                            "prefix": ":",
+                            "value": "\\w+"
+                        },
+                        {
+                            "key": "hDmx",
+                            "prefix": ":",
+                            "value": "\\w+"
+                        },
+                        {
+                            "key": "u16PcrPid",
+                            "prefix": ":",
+                            "value": "\\w+"
+                        },
+                        {
+                            "key": "hVidDec",
+                            "prefix": ":",
+                            "value": "\\w+"
+                        },
+                        {
+                            "key": "hAudDec",
+                            "prefix": ":",
+                            "value": "\\w+"
+                        }
+                    ]
+                }
+            },
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "Common",
+                "action": "Common DTV/PVR playback flow check",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "MApi_VDEC_EX_V2_Init u8Idx:0 Out:",
+                            "E_MI_VIDEO_VDEC_EVENT_DISP_INFO_CHG",
+                            "first frame ready",
+                            "First flip to MVOP",
+                            "u32VideoPathDelay"
+                        ]
+                    ]
+                }
+            },
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "Common",
+                "action": "Check if there are non-constant value between MApi_VDEC_EX_V2_Init and _MApi_VDEC_EX_V2_Exit",
+                "pattern_categories": {
+                    "keyword": [
+                        [
+                            "MApi_VDEC_EX_V2_Init",
+                            "_MApi_VDEC_EX_V2_Exit"
+                        ]
+                    ],
+                    "key_value": [
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "Horizon Size",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "Vertical Size",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "Crop Right",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "Left",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "Bottom",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "Top",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "Aspect Width",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "Height",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "SAR Width",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "Height",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d"
+                        },
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "AFD",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "ASPECT_INFO.*",
+                            "key": "Aspect rate",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d"
+                        }
+                    ]
+                }
+            },
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "Common",
+                "action": "Flow need to follow",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "MI_SYNC_Open",
+                            "MI_SYNC_SetMode",
+                            "MI_SYNC_Start"
+                        ]
+                    ],
+                    "key_value": [
+                        {
+                            "key_prefix": "MI3_INFO.*",
+                            "key": "STC",
+                            "prefix": ":",
+                            "value": "[\\d\\w]+"
+                        },
+                        {
+                            "key_prefix": "MI3_INFO.*",
+                            "key": "PTS",
+                            "prefix": "\\(",
+                            "value": "[\\d\\w]+",
+                            "suffix": "\\)"
+                        },
+                        {
+                            "key_prefix": "MI3_INFO.*",
+                            "key": "DELTA",
+                            "prefix": "\\(",
+                            "value": "[\\d\\w]+",
+                            "suffix": "\\)"
+                        },
+                        {
+                            "key_prefix": "VSYNC_Proc.*",
+                            "key": "u32stc",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "VSYNC_Proc.*",
+                            "key": "u32pts",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "VSYNC_Proc.*",
+                            "key": "sync_status",
+                            "prefix": "\\s=\\s",
+                            "value": "[\\d\\w]+"
+                        }
+                    ]
+                }
+            }
+        ],
+        "API Check fail": [
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "Mellow",
+                "action": "Need to check decoder driver",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "Got E_VDEC_EX_EVENT_DISP_INFO_CHG",
+                            "failed to MApi_VDEC_EX_CheckDispInfoRdy",
+                            "_MApi_VDEC_EX_V2_Exit"
+                        ],
+                        [
+                            "MApi_VDEC_EX_V2_Init",
+                            "_MI_VIDEO_GetMetadataBuffer Allocate Memory fail",
+                            "_MApi_VDEC_EX_V2_Exit"
+                        ]
+                    ]
+                }
+            }
+        ],
+        "Decoder fatal": [
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "Merlin",
+                "action": "Need to check decoder driver",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "MApi_VDEC_EX_V2_Init",
+                            "Error: VDEC FW pasued due to error code",
+                            "_MApi_VDEC_EX_V2_Exit"
+                        ],
+                        [
+                            "MApi_VDEC_EX_V2_Init",
+                            "_MI_VIDEO_GetMetadataBuffer Allocate Memory fail",
+                            "_MApi_VDEC_EX_V2_Exit"
+                        ]
+                    ]
+                }
+            },
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "",
+                "action": "Need to check buffer layout or control flow",
+                "pattern_categories": {
+                    "keyword": [
+                        "Need to check buffer layout or control flow"
+                    ]
+                }
+            }
+        ],
+        "Mute": [
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "Mossie",
+                "action": "Need to check video monitor",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "first frame ready",
+                            "\\[AVMONITOR\\] Wait user unmute !!"
+                        ]
+                    ]
+                }
+            },
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "",
+                "action": "Need to check video monitor",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "first frame ready",
+                            "\\[AVMONITOR\\] TimeOut!!"
+                        ]
+                    ]
+                }
+            },
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "",
+                "action": "Without MI_SYNC_Start after MI_SYNC_Open; Need to check MW playback flow",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "E_MI_VIDEO_VDEC_EVENT_DISP_INFO_CHG",
+                            "E_MI_DISP_CALLBACK_EVENT_GET_VIDEO_LATENCY"
+                        ]
+                    ]
+                }
+            }
+        ],
+        "AVSYNC": [
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "",
+                "action": "Without MI_SYNC_Start after MI_SYNC_Open; Need to check MW playback flow",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "MI_SYNC_Open",
+                            "MI_SYNC_Start"
+                        ]
+                    ]
+                }
+            },
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "",
+                "action": "sync_status = 0x0, occurrence   rate more than 50% between; MApi_VDEC_EX_V2_Init and _MApi_VDEC_EX_V2_Exit; Need to check sync module",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "MApi_VDEC_EX_V2_Init",
+                            "_MApi_VDEC_EX_V2_Exit"
+                        ]
+                    ],
+                    "key_value": [
+                        {
+                            "key_prefix": "VSYNC_Proc.*",
+                            "key": "sync_status",
+                            "prefix": "\\s=\\s",
+                            "value": "[\\w\\d]+"
+                        }
+                    ]
+                }
+            }
+        ],
+        "Data input": [
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "",
+                "action": "es: (0x4ae2080 , 0x4b528f0) = (a,, b); if b-a less than 16, Need to check DMX module",
+                "pattern_categories": {
+                    "key_value": [
+                        {
+                            "key_prefix": "VSYNC_Proc.*",
+                            "key": "es",
+                            "prefix": ":\\s\\(",
+                            "value": "[\\d\\w\\s,]+",
+                            "suffix": "\\)"
+                        }
+                    ]
+                }
+            },
+            {
+                "function": "BSP_Video",
+                "module": "Video",
+                "project": "Fusion",
+                "platform": "",
+                "action": "if Dec:0 and ES R!=0 more than 5 seconds; Need to check decoder driver",
+                "pattern_categories": {
+                    "key_value": [
+                        {
+                            "key_prefix": "MI3_INFO.RATE.*",
+                            "key": "Dec",
+                            "prefix": ":",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "MI3_INFO.RATE.*",
+                            "key": "ES\\(R",
+                            "prefix": ":\\s+",
+                            "value": "\\d+"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "name": "pattern_wh",
+    "issue_categories": {
+        "Common flow check": [
+            {
+                "function": "WH",
+                "module": "Dash",
+                "project": "MLR",
+                "platform": "Linux-MLR",
+                "action": "如果flow部分有缺少，需要找dash owner先来理清",
+                "pattern_categories": {
+                    "sequence": [
+                        [
+                            "dash init start",
+                            "dash open start",
+                            "dash download mpd start",
+                            "build table start",
+                            "dash notify open done",
+                            "dash play start",
+                            "cmpb IMtkPb_Ctrl_Play_PreBuffer_Strm START",
+                            "prepared done",
+                            "dash play start",
+                            "cmpb from prebuffer IMtkPb_Ctrl_PlayEx",
+                            "START dash notify play done"
+                        ]
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,128 @@
+{
+    "name": "pattern_platform_mm",
+    "issue_categories": {
+        "decoder init fail": [
+            {
+                "function": "Platform_MM",
+                "module": "VDEC",
+                "project": "MLR",
+                "platform": "Linux-MLR",
+                "action": "video decoder open fail, 會請vdec 釐清甚麼原因vdec無法open",
+                "pattern_categories": {
+                    "keyword": [
+                        "video decoder open fail!"
+                    ]
+                }
+            }
+        ],
+        "no audio output": [
+            {
+                "function": "Platform_MM",
+                "module": "AUDIO",
+                "project": "MLR",
+                "platform": "Linux-MLR",
+                "action": "1. push到audio renderer的data值都是0; 2. passthrough mode player不碰data; 3. 此case要請上層確認audio data正確性",
+                "pattern_categories": {
+                    "key_value": [
+                        {
+                            "key_prefix": "MS_Audio_PASSTHROUGH_EsAllocCopy.*",
+                            "key": "data",
+                            "prefix": "=",
+                            "vaule": "[\\d\\w\\s]+"
+                        }
+                    ]
+                }
+            }
+        ],
+        "display black screen": [
+            {
+                "function": "Platform_MM",
+                "module": "MM",
+                "project": "ANR",
+                "platform": "Linux-ANR",
+                "action": "沒有Displayer handle, 要請上層CMPB檢查",
+                "pattern_categories": {
+                    "keyword": [
+                        "hDispHandle is NULL."
+                    ]
+                }
+            }
+        ],
+        "player status": [
+            {
+                "function": "Platform_MM",
+                "module": "MM",
+                "project": "Mossie_Linux-MLR_WW_2020_1",
+                "platform": "Linux-MLR",
+                "action": "請上層釐清flow",
+                "pattern_categories": {
+                    "sequence": [
+                        "MstPlayer::constructor",
+                        "MstPlayer::constructor Leave",
+                        "MstPlayer::setDataSource",
+                        "MstPlayer::setNativeWindow",
+                        "MstPlayer::setSubtitleWin",
+                        "MstPlayer::setAudioRenderer",
+                        "MstPlayer::prepareAsync",
+                        "MstPlayer::prepared",
+                        "MstPlayer::start",
+                        "MstPlayer::pause",
+                        "MstPlayer::stop",
+                        "MstPlayer::setNativeWindow",
+                        "MstPlayer::reset",
+                        "MstPlayer::destructor",
+                        "MstPlayer::destructor Leave"
+                    ]
+                }
+            }
+        ],
+        "video is not smoothly": [
+            {
+                "function": "Platform_MM",
+                "module": "MM",
+                "project": "Vizio_2021_MT5583_Linux-Ref_US",
+                "platform": "Linux-MLR",
+                "action": "此次卡頓要找上層釐清推data速度",
+                "pattern_categories": {
+                    "keyword": [
+                        "MMP.+MMP.+vo_r 0",
+                        "MSTAR_VDEC_API.*MsVdecVacancy",
+                        "MMP.*not_keep_frame",
+                        "MstPlayer::pushESPayload type = 1"
+                    ]
+                }
+            }
+        ],
+        "Cannot display photo": [
+            {
+                "function": "Platform_MM",
+                "module": "MM",
+                "project": "MLR",
+                "platform": "Linux-MLR",
+                "action": "Ask MI_IMGDEC owner to help",
+                "pattern_categories": {
+                    "keyword": [
+                        "MI_IMGDEC_Open failed. ret = ",
+                        "Error : Decode photo failed. ret = 0x",
+                        "failed to decode photo, clear surfaces",
+                        "Error : Decode photo failed."
+                    ]
+                }
+            }
+        ],
+        "Can't adjust the volume": [
+            {
+                "function": "Platform_MM",
+                "module": "MM",
+                "project": "MLR",
+                "platform": "Linux-MLR",
+                "action": "hint:確認上層是否還未起播就來設跟拿audio easing",
+                "pattern_categories": {
+                    "keyword": [
+                        "Audio Renderer is not created yet!"
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,143 @@
+{
+    "name": "pattern_bsp_display",
+    "issue_categories": {
+        "Common": [
+            {
+                "function": "",
+                "module": "",
+                "project": "",
+                "platform": "",
+                "action": "",
+                "pattern_categories": {
+                    "keyword": [
+                        "WINDOW_INFO",
+                        "MUTE_INFO",
+                        "\\[MT\\]"
+                    ]
+                }
+            }
+        ],
+        "有沒有解遮類型的問題(case.1)": [
+            {
+                "function": "",
+                "module": "",
+                "project": "",
+                "platform": "",
+                "action": "只要是mode3以外的情況畫面都會被mute住。上層沒有來下mode3而造成的黑屏要找上層來看，有mode3的話由MI來查",
+                "pattern_categories": {
+                    "key_value": [
+                        {
+                            "key_prefix": "MTGVDO_SetMode.*",
+                            "key": "mode",
+                            "prefix": "\\s",
+                            "value": "\\d+"
+                        }
+                    ]
+                }
+            }
+        ],
+        "有沒有解遮類型的問題(case.2)": [
+            {
+                "function": "",
+                "module": "",
+                "project": "",
+                "platform": "",
+                "action": "MI解遮的log，如果log最後有這行但畫面還是黑的，就不是MI遮住",
+                "pattern_categories": {
+                    "keyword": [
+                        "E_MI_DISP_MUTE_ACTION_UNMUTE"
+                    ]
+                }
+            }
+        ],
+        "畫面沒有全屏": [
+            {
+                "function": "",
+                "module": "",
+                "project": "",
+                "platform": "",
+                "action": "需要全屏的情況可以看上層下下來的rectangle大小，根據使用的panel可能會有差異(2K、4K)，看數值應該很明顯可以看出，數值有異找上層，正常MI來看",
+                "pattern_categories": {
+                    "key_value": [
+                        {
+                            "key_prefix": "MI_DISP_SetOutputRect.*",
+                            "key": "pstOutRect",
+                            "prefix": ":{",
+                            "value": "[\\d,\\s]+",
+                            "suffix": "}"
+                        }
+                    ]
+                }
+            }
+        ],
+        "avout": [
+            {
+                "function": "",
+                "module": "",
+                "project": "",
+                "platform": "",
+                "action": "_abEnableCvbsOut:1 _bCvbsOutEnable:0; 確認這兩個值要為1和0，代表MI有Set Cvbs Out",
+                "pattern_categories": {
+                    "key_value": [
+                        {
+                            "key_prefix": "check avout status.*",
+                            "key": "_abEnableCvbsOut",
+                            "prefix": ":",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "check avout status.*",
+                            "key": "_bCvbsOutEnable",
+                            "prefix": ":",
+                            "value": "\\d+"
+                        }
+                    ]
+                }
+            }
+        ],
+        "vga畫面偏移": [
+            {
+                "function": "",
+                "module": "",
+                "project": "",
+                "platform": "",
+                "action": "從上層代下來的clock offset若不為零而造成畫面偏移，則是上層的問題，若為0，MI要查",
+                "pattern_categories": {
+                    "key_value": [
+                        {
+                            "key_prefix": "MI_DISP_IMPL_INPUT_SetAdcClock.*",
+                            "key": "User set ADC clock",
+                            "prefix": ":",
+                            "value": "\\d+"
+                        }
+                    ]
+                }
+            }
+        ],
+        "起播畫面閃garbage": [
+            {
+                "function": "",
+                "module": "",
+                "project": "",
+                "platform": "",
+                "action": "閃garbage可能是MI提早解遮造成。cur-start的數字要大於PQ delay time，代表沒有提前解遮，遮黑時間有足夠。",
+                "pattern_categories": {
+                    "key_value": [
+                        {
+                            "key_prefix": "Wait PQ delay done.*",
+                            "key": "PQ delay time",
+                            "prefix": "\\s=\\s",
+                            "value": "\\d+"
+                        },
+                        {
+                            "key_prefix": "Wait PQ delay done.*",
+                            "key": "cur-start",
+                            "prefix": "=",
+                            "value": "\\d+"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

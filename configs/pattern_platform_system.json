@@ -1,0 +1,73 @@
+{
+    "name": "pattern_platform_system",
+    "issue_categories": {
+        "API call Fail": [
+            {
+                "function": "Platform_System",
+                "module": "DFB",
+                "project": "Common",
+                "platform": "Common",
+                "action": "DFB module not found, it could be LD path setting issue.",
+                "pattern_categories": {
+                    "keyword": [
+                        "\\[DirectFBCreate\\]: No implementation"
+                    ]
+                }
+            },
+            {
+                "function": "Platform_System",
+                "module": "DFB",
+                "project": "Common",
+                "platform": "Common",
+                "action": "DFB create and the setting is wrong.",
+                "pattern_categories": {
+                    "keyword": [
+                        "\\[DirectFBCreate\\(\\) failed\\]: The requested operation or an argument is \\(currently\\) not supported"
+                    ]
+                }
+            }
+        ],
+        "MI function init fail": [
+            {
+                "function": "Platform_System",
+                "module": "Light",
+                "project": "Ref+",
+                "platform": "Android R Ref+",
+                "action": "If this log occurrs over 20(tryCnt) times in one STR scnerio, then we should check with milib function.",
+                "pattern_categories": {
+                    "keyword": [
+                        "E LightsHAL: [MI]Panel is not inited !"
+                    ]
+                }
+            }
+        ],
+        "long press power key": [
+            {
+                "function": "Platform_System",
+                "module": "Power",
+                "project": "Ref+",
+                "platform": "Android Q Ref+",
+                "action": "SI check",
+                "pattern_categories": {
+                    "keyword": [
+                        "Notifying thread to start shutdown longPressBehavior=2"
+                    ]
+                }
+            }
+        ],
+        "API Connection Fail": [
+            {
+                "function": "Platform_System",
+                "module": "Camera",
+                "project": "AOSP_CN",
+                "platform": "Moore",
+                "action": "camer owner analyze",
+                "pattern_categories": {
+                    "keyword": [
+                        "HW Decode Failed"
+                    ]
+                }
+            }
+        ]
+    }
+}
